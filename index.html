@@ -124,4 +124,76 @@
   </div>
 
   <div class="message" id="message">
-    🎉 CONTRACT
+    🎉 CONTRACT ACTIVATED 🎉<br><br>
+    You are officially:<br>
+    🍽️ <strong>My lunch partner</strong><br>
+    (go ahead… you’re paying the bill 😌)<br><br>
+    Emotional support included. Opt-out not allowed.
+    <small>
+      Love,<br>
+      your slightly superior sibling ✨
+    </small>
+  </div>
+</div>
+
+<!-- Audio -->
+<audio id="cry">
+  <source src="https://www.soundjay.com/human/sounds/crying-baby-01.mp3">
+</audio>
+
+<audio id="alarm">
+  <source src="https://www.soundjay.com/misc/sounds/alarm-clock-01.mp3">
+</audio>
+
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const message = document.getElementById("message");
+  const cry = document.getElementById("cry");
+  const alarm = document.getElementById("alarm");
+
+  const texts = [
+    "Rude.",
+    "Try again 😒",
+    "Wrong answer",
+    "This hurts",
+    "Unacceptable 🙃"
+  ];
+
+  noBtn.addEventListener("mouseenter", () => {
+    const maxX = window.innerWidth - 120;
+    const maxY = window.innerHeight - 120;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+    noBtn.innerText = texts[Math.floor(Math.random() * texts.length)];
+
+    cry.currentTime = 0;
+    cry.play().catch(() => {});
+  });
+
+  yesBtn.addEventListener("click", () => {
+    message.style.display = "block";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
+    alarm.play().catch(() => {});
+    confetti();
+  });
+
+  function confetti() {
+    for (let i = 0; i < 45; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random() * window.innerWidth + "px";
+      c.style.background =
+        ["#ff3366", "#ffd166", "#06d6a0"][Math.floor(Math.random() * 3)];
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 2500);
+    }
+  }
+</script>
+
+</body>
+</html>
+
