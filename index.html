@@ -6,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     min-height: 100vh;
@@ -15,7 +19,6 @@
     background: #000;
     font-family: Tahoma, sans-serif;
     padding: 20px;
-    box-sizing: border-box;
     overflow: hidden;
   }
 
@@ -78,12 +81,14 @@
     margin-top: 22px;
     font-size: 16px;
     color: #ff3366;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   .panda {
     width: 140px;
-    margin: 10px auto 15px;
+    margin: 10px auto 16px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
   }
 
   small {
@@ -98,8 +103,9 @@
     position: fixed;
     width: 8px;
     height: 12px;
-    opacity: 0.9;
     pointer-events: none;
+    opacity: 0.9;
+    z-index: 1;
   }
 
   @media (min-width: 768px) {
@@ -121,7 +127,10 @@
   </div>
 
   <div class="message" id="message">
-    <img class="panda" src="https://i.imgur.com/9JY8ZQx.png" alt="clingy panda">
+    <img 
+      class="panda"
+      src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Grosser_Panda.JPG"
+      alt="clingy panda">
 
     🎉 <strong>CONTRACT ACTIVATED</strong> 🎉<br><br>
 
@@ -155,7 +164,13 @@
   const alarm = document.getElementById("alarm");
   const buttonArea = document.getElementById("buttonArea");
 
-  const texts = ["Rude.", "Try again 😒", "Wrong answer", "This hurts", "Unacceptable 🙃"];
+  const texts = [
+    "Rude.",
+    "Try again 😒",
+    "Wrong answer",
+    "This hurts",
+    "Unacceptable 🙃"
+  ];
 
   noBtn.addEventListener("mouseenter", () => {
     const area = buttonArea.getBoundingClientRect();
@@ -184,42 +199,40 @@
   function burstConfetti() {
     const colors = ["#ff3366", "#ffd166", "#06d6a0", "#4cc9f0"];
 
-    for (let i = 0; i < 80; i++) {
-      const confetti = document.createElement("div");
-      confetti.className = "confetti";
-      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+    for (let i = 0; i < 90; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
 
-      const startX = window.innerWidth / 2;
-      const startY = window.innerHeight / 2;
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight / 2;
+      let angle = Math.random() * Math.PI * 2;
+      let velocity = Math.random() * 10 + 6;
+      let gravity = 0.4;
 
-      confetti.style.left = startX + "px";
-      confetti.style.top = startY + "px";
+      let vx = Math.cos(angle) * velocity;
+      let vy = Math.sin(angle) * velocity;
 
-      const angle = Math.random() * 2 * Math.PI;
-      const velocity = Math.random() * 12 + 6;
-      const xVel = Math.cos(angle) * velocity;
-      const yVel = Math.sin(angle) * velocity;
+      c.style.left = x + "px";
+      c.style.top = y + "px";
 
-      document.body.appendChild(confetti);
+      document.body.appendChild(c);
 
-      let x = startX;
-      let y = startY;
-      let gravity = 0.5;
+      function animate() {
+        x += vx;
+        y += vy;
+        vy += gravity;
 
-      const animate = () => {
-        x += xVel;
-        y += yVel + gravity;
-        confetti.style.left = x + "px";
-        confetti.style.top = y + "px";
-        confetti.style.transform = `rotate(${x + y}deg)`;
-        gravity += 0.15;
+        c.style.left = x + "px";
+        c.style.top = y + "px";
+        c.style.transform = `rotate(${x + y}deg)`;
 
-        if (y < window.innerHeight) {
+        if (y < window.innerHeight + 20) {
           requestAnimationFrame(animate);
         } else {
-          confetti.remove();
+          c.remove();
         }
-      };
+      }
 
       animate();
     }
@@ -228,3 +241,4 @@
 
 </body>
 </html>
+
