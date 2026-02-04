@@ -100,25 +100,20 @@
     }
   }
 
-  /* Desktop enhancement */
   @media (min-width: 768px) {
-    h1 {
-      font-size: 26px;
-    }
-    .card {
-      padding: 40px 36px;
-    }
+    h1 { font-size: 26px; }
+    .card { padding: 40px 36px; }
   }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Will you be my Chaos Companion? 🖤</h1>
+<div class="card" id="card">
+  <h1>Will you be my Designated Lunch Date? 🖤</h1>
   <p>(No is emotionally damaging btw)</p>
 
-  <div class="buttons">
+  <div class="buttons" id="buttonArea">
     <button id="yes">Yes 😌</button>
     <button id="no">No 🙄</button>
   </div>
@@ -131,7 +126,7 @@
     Emotional support included. Opt-out not allowed.
     <small>
       Love,<br>
-      your slightly superior sibling ✨
+      your legally annoying sibling ✨
     </small>
   </div>
 </div>
@@ -151,6 +146,7 @@
   const message = document.getElementById("message");
   const cry = document.getElementById("cry");
   const alarm = document.getElementById("alarm");
+  const buttonArea = document.getElementById("buttonArea");
 
   const texts = [
     "Rude.",
@@ -161,11 +157,17 @@
   ];
 
   noBtn.addEventListener("mouseenter", () => {
-    const maxX = window.innerWidth - 120;
-    const maxY = window.innerHeight - 120;
+    const areaRect = buttonArea.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
 
-    noBtn.style.left = Math.random() * maxX + "px";
-    noBtn.style.top = Math.random() * maxY + "px";
+    const maxX = areaRect.width - btnRect.width;
+    const maxY = areaRect.height - btnRect.height;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
     noBtn.innerText = texts[Math.floor(Math.random() * texts.length)];
 
     cry.currentTime = 0;
@@ -196,4 +198,3 @@
 
 </body>
 </html>
-
