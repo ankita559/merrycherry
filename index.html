@@ -17,8 +17,40 @@ body {
   background: #000;
   font-family: Tahoma, sans-serif;
   padding: 20px;
+  overflow: hidden;
 }
 
+/* Floating Hearts Background */
+.hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  color: #ff4d88;
+  font-size: 18px;
+  animation: floatUp linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh) scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(-10vh) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Card */
 .card {
   background: #fff;
   width: 100%;
@@ -28,7 +60,7 @@ body {
   text-align: center;
   box-shadow: 0 0 40px rgba(255,105,180,0.35);
   position: relative;
-  transition: all 0.3s ease;
+  z-index: 2;
 }
 
 h1 {
@@ -117,13 +149,16 @@ small {
   width: 8px;
   height: 12px;
   pointer-events: none;
-  z-index: 999;
+  z-index: 3;
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- Floating Hearts -->
+<div class="hearts" id="hearts"></div>
 
 <div class="card" id="card">
   <h1>Will you be my Designated Lunch Date? 🖤</h1>
@@ -136,7 +171,6 @@ small {
 
   <div class="message" id="message">
 
-    <!-- Annoying sibling energy GIF -->
     <img class="annoy-gif"
     src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif"
     alt="annoying reaction">
@@ -174,6 +208,18 @@ const cry = document.getElementById("cry");
 const alarm = document.getElementById("alarm");
 const buttonArea = document.getElementById("buttonArea");
 const card = document.getElementById("card");
+const heartsContainer = document.getElementById("hearts");
+
+/* Floating Hearts Generator */
+for (let i = 0; i < 25; i++) {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+  heart.style.fontSize = (14 + Math.random() * 10) + "px";
+  heartsContainer.appendChild(heart);
+}
 
 const texts = ["Rude.", "Try again 😒", "Wrong answer", "This hurts", "Unacceptable 🙃"];
 
