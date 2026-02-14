@@ -23,6 +23,30 @@ body {
   overflow: hidden;
 }
 
+/* Floating Luxe Icons */
+.floating-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.float-item {
+  position: absolute;
+  font-size: 42px;
+  opacity: 0.15;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0%   { transform: translate(0px, 0px); }
+  50%  { transform: translate(25px, -20px); }
+  100% { transform: translate(-25px, 20px); }
+}
+
 /* Card */
 .card {
   background: #0f0f0f;
@@ -32,7 +56,8 @@ body {
   width: 100%;
   text-align: center;
   box-shadow: 0 0 60px rgba(255, 46, 136, 0.25);
-  transition: 0.4s ease;
+  position: relative;
+  z-index: 2;
 }
 
 h1 {
@@ -103,6 +128,11 @@ button {
   color: #ff2e88;
 }
 
+.final p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 .signature {
   margin-top: 30px;
   font-style: italic;
@@ -132,6 +162,8 @@ button {
 
 <body>
 
+<div class="floating-layer" id="floatingLayer"></div>
+
 <div class="card" id="card">
   <h1>Will You Be My Galentine Date?</h1>
 
@@ -143,17 +175,32 @@ button {
   <div class="processing" id="processing"></div>
 
   <div class="final" id="final">
-    <h2>YAY! You just unlocked a forever partner.</h2>
-    <p>Now, will you go on a dinner date with me?</p>
+    <h2>YAY! You have been shortlisted to be my Forever Galetine Partner.</h2>
+    <p>
+      Will you accept my offer to be my dinner date and click my 78236 cute pictures?
+    </p>
 
     <div class="signature">
       Love,<br>
-      Your Annoying Sibling
+      Your Annoying Sister
     </div>
   </div>
 </div>
 
 <script>
+/* Enlarged floating hearts & bottles */
+const floatingLayer = document.getElementById("floatingLayer");
+const symbols = ["💗","💖","🍾","🥂","🍷"];
+
+for (let i = 0; i < 18; i++) {
+  const item = document.createElement("div");
+  item.className = "float-item";
+  item.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+  item.style.left = Math.random() * 100 + "vw";
+  item.style.top = Math.random() * 100 + "vh";
+  floatingLayer.appendChild(item);
+}
+
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const buttons = document.getElementById("buttons");
@@ -172,8 +219,8 @@ const noTexts = [
 ];
 
 noBtn.addEventListener("mouseenter", () => {
-  const moveX = Math.random() * 120 - 60;
-  const moveY = Math.random() * 40 - 20;
+  const moveX = Math.random() * 140 - 70;
+  const moveY = Math.random() * 50 - 25;
   noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
   noBtn.innerText = noTexts[Math.floor(Math.random()*noTexts.length)];
 });
@@ -212,7 +259,6 @@ function showFinal() {
   burstConfetti();
 }
 
-/* Luxe Confetti */
 function burstConfetti() {
   const colors = ["#ff2e88","#ffd166","#ffffff"];
 
