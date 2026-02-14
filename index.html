@@ -37,7 +37,7 @@ body {
 .float-item {
   position: absolute;
   font-size: 42px;
-  opacity: 0.15;
+  opacity: 0.12;
   animation: drift 8s ease-in-out infinite alternate;
 }
 
@@ -68,7 +68,6 @@ h1 {
   letter-spacing: 0.5px;
 }
 
-/* Buttons */
 .buttons {
   position: relative;
   height: 80px;
@@ -111,7 +110,6 @@ button {
   font-size: 20px;
   line-height: 1.8;
   opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 /* Final Message */
@@ -124,7 +122,7 @@ button {
 .final h2 {
   font-family: 'Playfair Display', serif;
   font-size: 26px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #ff2e88;
 }
 
@@ -134,9 +132,16 @@ button {
 }
 
 .signature {
-  margin-top: 30px;
+  margin-top: 25px;
   font-style: italic;
   color: #ff2e88;
+}
+
+.excited-gif {
+  width: 200px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 18px;
 }
 
 @keyframes fadeIn {
@@ -176,6 +181,12 @@ button {
 
   <div class="final" id="final">
     <h2>YAY! You have been shortlisted to be my Forever Galetine Partner.</h2>
+
+    <!-- Working Excited GIF -->
+    <img class="excited-gif"
+         src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif"
+         alt="excited celebration">
+
     <p>
       Will you accept my offer to be my dinner date and click my 78236 cute pictures?
     </p>
@@ -188,11 +199,11 @@ button {
 </div>
 
 <script>
-/* Enlarged floating hearts & bottles */
+/* Floating icons */
 const floatingLayer = document.getElementById("floatingLayer");
 const symbols = ["💗","💖","🍾","🥂","🍷"];
 
-for (let i = 0; i < 18; i++) {
+for (let i = 0; i < 15; i++) {
   const item = document.createElement("div");
   item.className = "float-item";
   item.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
